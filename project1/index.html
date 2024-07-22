@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Merry Christmas</title>
+    <style type="text/css">
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            background: url("./christmas-tree-2928142.jpg") no-repeat left center;
+            background-size: 100% auto;
+        }
+
+        .ask {
+            position: fixed;
+            left: -400px;
+            top: 100px;
+            transition: 0.6s;
+            transform-style: flat;
+        }
+
+        .ask-show {
+            transform: translateX(800px)
+        }
+
+        .ask-fuck {
+            transform: translateX(3000px) rotate(3240deg);
+        }
+ 
+        .getout:hover {
+            cursor: pointer;
+            border-color: #f00;
+        }
+
+        .answer, .wait {
+            position: fixed;
+            top: 160px;
+            left: 700px;
+            display: none;
+
+        }
+
+        .wait {
+            top: 180px;
+        }
+
+        button {
+            width: 200px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 16px;
+            font-family: "微软雅黑";
+            text-align: center;
+            display: block;
+            margin-top: 30px;
+        }
+
+        #phone {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <img src="./phone.png" alt="" id="phone">
+    <div class="pc">
+        <audio src="./bg.mp3" id="playAudio" autoplay loop></audio>
+        <img src="./yuema.png" alt="" class="ask">
+        <div class="answer">
+            <button onclick="getoutMyway()">不帅！！！滚</button>
+            <button onclick="playFirework()">帅帅帅帅帅帅帅</button>
+        </div>
+        <div class="wait">
+            <button onclick="comeback()">等等，回来</button>
+        </div>
+
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="./jquery.fireworks.js"></script>
+    <script type="text/javascript">
+        (function($){
+            $.fn.snow = function(options){
+            var $flake = $('<div id="snowbox" />').css({'position': 'absolute','z-index':'9999', 'top': '-50px'}).html('&#10052;'),
+            documentHeight 	= $(document).height(),
+            documentWidth	= $(document).width(),
+            defaults = {
+                minSize		: 10,
+                maxSize		: 20,
+                newOn		: 1000,
+                flakeColor	: "#AFDAEF" /* 此处可以定义雪花颜色，若要白色可以改为#FFFFFF */
+            },
+            options	= $.extend({}, defaults, options);
+            var interval= setInterval( function(){
+            var startPositionLeft = Math.random() * documentWidth - 100,
+            startOpacity = 0.5 + Math.random(),
+            sizeFlake = options.minSize + Math.random() * options.maxSize,
+            endPositionTop = documentHeight - 200,
+            endPositionLeft = startPositionLeft - 500 + Math.random() * 500,
+            durationFall = documentHeight * 10 + Math.random() * 5000;
+            $flake.clone().appendTo('body').css({
+                left: startPositionLeft,
+                opacity: startOpacity,
+                'font-size': sizeFlake,
+                color: options.flakeColor
+            }).animate({
+                top: endPositionTop,
+                left: endPositionLeft,
+                opacity: 0.2
+            },durationFall,'linear',function(){
+                $(this).remove()
+            });
+            }, options.newOn);
+            };
+        })(jQuery);
+        $(function(){
+
+            if (checkIsMobile()) {
+                $('#phone').show();
+                $('.pc').hide();
+                $('body').css('background', 'none');
+                return;
+            }
+
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const params = Object.fromEntries(urlSearchParams.entries());
+
+            if (params['auth'] == 1) {
+                var allowedPerson = ['赵总', '丹姐', '静静', '丽韵'];
+                let guest;
+
+                if (guest = window.prompt('你哪位?')) {
+                    if (allowedPerson.indexOf(guest) == -1) {
+                        alert('滚粗吧');
+                        $('body').html('<h1>啥都不给看</h1>').css('background', 'none');
+                        return;
+                    } else {
+                        window.document.title = guest + " Merry Christmas";
+                    }
+                } else {
+                    alert('滚粗吧');
+                        $('body').html('<h1>啥都不给看</h1>').css('background', 'none');
+                        return;
+                }
+            }
+            
+
+            $.fn.snow({ 
+                minSize: 5, /* 定义雪花最小尺寸 */
+                maxSize: 50,/* 定义雪花最大尺寸 */
+                newOn: 300  /* 定义密集程度，数字越小越密集 */
+            });
+
+            setTimeout(function() {
+                $('.ask').addClass('ask-show');
+            }, 3000);
+
+            setTimeout(function() {
+                $('.answer').fadeIn(800);
+            }, 4000);
+
+            
+            
+        });
+
+        function checkIsMobile() {
+            //判断访问终端
+            var browser = {
+                versions: function () {
+                    var u = navigator.userAgent, app = navigator.appVersion;
+                    return {
+                        trident: u.indexOf('Trident') > -1,                            //IE内核
+                        presto: u.indexOf('Presto') > -1,                              //opera内核
+                        webKit: u.indexOf('AppleWebKit') > -1,                         //苹果、谷歌内核
+                        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,    //火狐内核
+                        mobile: !!u.match(/AppleWebKit.*Mobile.*/),                    //是否为移动终端
+                        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),               //ios终端
+                        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                        iPhone: u.indexOf('iPhone') > -1,                              //是否为iPhone或者QQHD浏览器
+                        iPad: u.indexOf('iPad') > -1,                                  //是否iPad
+                        webApp: u.indexOf('Safari') == -1,                             //是否web应该程序，没有头部与底部
+                        weixin: u.indexOf('MicroMessenger') > -1,                      //是否微信 （2015-01-22新增）
+                        qq: u.match(/\sQQ/i) == " qq"                                  //是否QQ
+                    };
+                }(),
+                language: (navigator.browserLanguage || navigator.language).toLowerCase()
+            };
+
+            // 判断是否为移动端
+            if (browser.versions.mobile || browser.versions.android || browser.versions.ios) {
+                return true;
+            }
+
+            return false;
+        }
+
+        function comeback() {
+            $('.wait').fadeOut(600);
+            $('.answer').fadeIn(1000);
+            $('.ask').removeClass('ask-fuck');
+        }
+
+        function playFirework() {
+            $('.ask').fadeOut(600);
+            $('.answer').fadeOut(600);
+            $('body').fireworks();
+            $('#playAudio').attr("src", "./marryme.mp3");
+        }
+
+        function getoutMyway() {
+            $('.answer').fadeOut(800);
+            $('.ask').addClass('ask-fuck');
+
+            setTimeout(function() {
+                $('.wait').fadeIn(800);
+            }, 800);
+        }
+        </script>
+</body>
+</html>
