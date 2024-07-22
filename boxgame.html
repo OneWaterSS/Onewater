@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function createBox(id) {
+        var box = document.createElement("div");
+        box.style.width = "100px";
+        box.style.height = "100px";
+        box.style.backgroundColor = getRandomColor();
+        box.style.position = "absolute";
+        document.body.appendChild(box);
+
+        box.onmousedown = function (event) {
+            var a = event.clientX - box.offsetLeft
+            var b = event.clientY - box.offsetTop
+            document.onmousemove = function (event) {
+                box.style.left = event.clientX - a + "px"
+                box.style.top = event.clientY - b + "px"
+            }
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+    }
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+    var i = 0
+    createBox(i)
+    document.onmousedown=function () {
+        i++
+        createBox(i)
+    }
+</script>
+</body>
+</html>
