@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Effect with Styles</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f0f0f0; /* 背景颜色 */
+        }
+        .line1, .line2, .line3, .line4 {
+            margin: 10px 0; /* 上下间距 */
+            text-align: center;
+            word-wrap: break-word; /* 自动换行 */
+        }
+        .line1 {
+            color: red;
+            font-size: 50px;
+        }
+        .line2 {
+            color: blue;
+            font-size: 20px;
+        }
+        .line3 {
+            color: green;
+            font-size: 18px;
+        }
+        .line4 {
+            color: purple;
+            font-size: 22px;
+        }
+        #button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .styled-button {
+            background-color: #4CAF50; /* 绿色背景 */
+            border: none; /* 去掉边框 */
+            color: white; /* 白色文字 */
+            padding: 15px 32px; /* 内边距 */
+            text-align: center; /* 文字居中 */
+            text-decoration: none; /* 去掉下划线 */
+            display: inline-block; /* 行内块元素 */
+            font-size: 25px; /* 字体大小 */
+            margin: 4px 2px; /* 外边距 */
+            cursor: pointer; /* 鼠标指针样式 */
+            border-radius: 12px; /* 圆角边框 */
+            transition: background-color 0.3s ease; /* 背景颜色过渡效果 */
+        }
+        .styled-button:hover {
+            background-color: #45a049; /* 悬停时背景颜色 */
+        }
+    </style>
+</head>
+<body>
+<div id="text"></div>
+<div id="button-container"></div>
+
+<script>
+    const lines = [
+        { text: "七夕快乐", className: "line1" },
+        { text: "亲爱的小茹宝宝", className: "line2" },
+        { text: "这是一个专属于你的七夕礼物", className: "line3" },
+        { text: "我们先来玩一个游戏吧", className: "line4" },
+    ];
+    const speed = 200; // 调整速度，数值越小越快
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function typeWriter() {
+        if (lineIndex < lines.length) {
+            const line = lines[lineIndex];
+            if (charIndex === 0) {
+                const lineDiv = document.createElement("div");
+                lineDiv.className = line.className;
+                lineDiv.id = `line${lineIndex}`;
+                document.getElementById("text").appendChild(lineDiv);
+            }
+            if (charIndex < line.text.length) {
+                document.getElementById(`line${lineIndex}`).innerHTML += line.text.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, speed);
+            } else {
+                charIndex = 0;
+                lineIndex++;
+                setTimeout(typeWriter, speed);
+            }
+        }else {
+            // 打字效果完成后显示按钮
+            const button = document.createElement("button");
+            button.innerHTML = "点击我";
+            button.className = "styled-button";
+            document.getElementById("button-container").appendChild(button);
+        }
+    }
+
+    typeWriter();
+</script>
+</body>
+</html>
