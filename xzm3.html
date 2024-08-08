@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字母卡片游戏</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .cards-container, .selected-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .card {
+            width: 20px;
+            height: 30px;
+            margin: 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #4CAF50;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.1);
+        }
+        .selected-card {
+            background-color: #FF5722; /* 新生成卡片的颜色 */
+        }
+        .placeholder {
+            width: 20px;
+            height: 30px;
+            margin: 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #000;
+            background-color: #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        #nextLevelBtn {
+            display: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #nextLevelBtn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h5>小茹宝宝，选择字母卡片,拼出一句你男朋友想听的英语</h5>
+<div class="cards-container">
+    <div class="card" data-letter="A">A</div>
+    <div class="card" data-letter="B">B</div>
+    <div class="card" data-letter="C">C</div>
+    <div class="card" data-letter="D">D</div>
+    <div class="card" data-letter="E">E</div>
+    <div class="card" data-letter="F">F</div>
+    <div class="card" data-letter="G">G</div>
+    <div class="card" data-letter="H">H</div>
+    <div class="card" data-letter="I">I</div>
+    <div class="card" data-letter="J">J</div>
+    <div class="card" data-letter="K">K</div>
+    <div class="card" data-letter="L">L</div>
+    <div class="card" data-letter="M">M</div>
+    <div class="card" data-letter="N">N</div>
+    <div class="card" data-letter="O">O</div>
+    <div class="card" data-letter="P">P</div>
+    <div class="card" data-letter="Q">Q</div>
+    <div class="card" data-letter="R">R</div>
+    <div class="card" data-letter="S">S</div>
+    <div class="card" data-letter="T">T</div>
+    <div class="card" data-letter="U">U</div>
+    <div class="card" data-letter="V">V</div>
+    <div class="card" data-letter="W">W</div>
+    <div class="card" data-letter="X">X</div>
+    <div class="card" data-letter="Y">Y</div>
+    <div class="card" data-letter="Z">Z</div>
+</div>
+<div class="selected-container" id="selectedContainer">
+    <div class="placeholder" data-index="0"></div>
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+    <div class="placeholder" data-index="1"></div>
+    <div class="placeholder" data-index="2"></div>
+    <div class="placeholder" data-index="3"></div>
+    <div class="placeholder" data-index="4"></div>
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+    <div class="placeholder" data-index="5"></div>
+    <div class="placeholder" data-index="6"></div>
+    <div class="placeholder" data-index="7"></div>
+</div>
+<button id="nextLevelBtn">下一关</button>
+<script>
+    const cards = document.querySelectorAll('.card');
+    const placeholders = document.querySelectorAll('.placeholder');
+    const selectedContainer = document.getElementById('selectedContainer');
+    const nextLevelBtn = document.getElementById('nextLevelBtn');
+    let selectedLetters = [];
+
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            if (selectedLetters.length < 8) {
+                const letter = card.dataset.letter;
+                selectedLetters.push(letter);
+
+                const placeholder = placeholders[selectedLetters.length - 1];
+                placeholder.textContent = letter;
+                placeholder.classList.add('selected-card');
+
+                if (selectedLetters.length === 8) {
+                    checkResult();
+                }
+            }
+        });
+    });
+
+    function checkResult() {
+        const result = selectedLetters.join('');
+        if (result === 'ILOVEYOU') {
+            nextLevelBtn.style.display = 'block';
+        } else {
+            alert('选择错误，请重新选择');
+            resetGame();
+        }
+    }
+
+    function resetGame() {
+        selectedLetters = [];
+        placeholders.forEach(placeholder => {
+            placeholder.textContent = '';
+            placeholder.classList.remove('selected-card');
+        });
+        nextLevelBtn.style.display = 'none';
+    }
+
+    nextLevelBtn.addEventListener('click', () => {
+        alert('进入下一关！');
+        // 可以在这里添加逻辑来进入下一关
+        resetGame();
+    });
+</script>
+</body>
+</html>
