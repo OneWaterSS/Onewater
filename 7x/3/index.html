@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>七夕节惊喜</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #fce4ec, #e91e63);
+            color: #333;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        header {
+            background-color: rgba(233, 30, 99, 0.8);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .countdown, .story, .gifts, .video, .gallery, .guestbook, .music-player {
+            padding: 20px;
+            text-align: center;
+        }
+
+        #countdown {
+            font-size: 2em;
+            font-weight: bold;
+            color: #e91e63;
+            border: 2px solid #e91e63;
+            border-radius: 10px;
+            padding: 20px;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .gift {
+            display: inline-block;
+            background-color: #e91e63;
+            color: white;
+            padding: 15px 30px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 1.5em;
+            transition: transform 0.2s;
+        }
+
+        .gift:hover {
+            transform: scale(1.1);
+            background-color: #c2185b;
+        }
+
+        .video {
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+        }
+
+        .video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .gallery {
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 10px;
+        }
+
+        .guestbook {
+            margin-top: 20px;
+        }
+
+        .guestbook textarea {
+            width: 80%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .guestbook button {
+            padding: 10px 20px;
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .guestbook button:hover {
+            background-color: #c2185b;
+        }
+
+        .music-player {
+            margin-top: 20px;
+        }
+
+        .music-player audio {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            background-color: rgba(233, 30, 99, 0.8);
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* 动态背景效果 */
+        .falling-heart {
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            background: url('heart.png') no-repeat center center;
+            background-size: contain;
+            animation: fall 5s infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh); }
+            100% { transform: translateY(100vh); }
+        }
+
+        /* 媒体查询 */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .gift {
+                font-size: 1.2em;
+                padding: 10px 20px;
+            }
+
+            .guestbook textarea {
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .gift {
+                font-size: 1em;
+                padding: 8px 15px;
+            }
+
+            .guestbook textarea {
+                width: 95%;
+            }
+
+            .gallery img {
+                max-width: 90%;
+                margin: 5px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>亲爱的万顺心，七夕节快乐！</h1>
+</header>
+<section class="story">
+    <h2>七夕节的故事</h2>
+    <p>七夕节，又称为中国情人节，是中国传统节日之一。传说牛郎织女在这一天相会，是一个充满浪漫色彩的节日。希望这一天你能感受到满满的爱与祝福。</p>
+</section>
+<section class="gifts">
+    <h2>虚拟礼物</h2>
+    <p>点击1下面的礼物，看看我为你准备了什么特别的惊喜！</p>
+    <div class="gift" onclick="openGift('heart')">❤️ 心形卡片</div>
+    <div class="gift" onclick="openGift('flowers')">🌸 虚拟花束</div>
+</section>
+<section class="gallery">
+    <h2>七夕节美图</h2>
+    <img src="image1.jpg" alt="七夕节美图1">
+    <img src="image2.jpg" alt="七夕节美图2">
+    <img src="image3.jpg" alt="七夕节美图3">
+</section>
+<section class="guestbook">
+    <h2>留言板</h2>
+    <textarea id="message" placeholder="在这里写下你的祝福..."></textarea>
+    <br>
+    <button onclick="submitMessage()">提交</button>
+</section>
+<section class="music-player">
+    <h2>背景音乐</h2>
+    <audio controls>
+        <source src="background-music.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放。
+    </audio>
+</section>
+<footer>
+    <p>© 2024 七夕节惊喜网站</p>
+</footer>
+<script>
+    function updateCountdown() {
+        const now = new Date();
+        const targetDate = new Date('2024-08-17T00:00:00'); // 设置七夕节的日期
+        const timeDifference = targetDate - now;
+
+        if (timeDifference <= 0) {
+            document.getElementById('countdown').innerHTML = '七夕节快乐！';
+            return;
+        }
+
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = days.toString().padStart(2, '0');
+        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+    }
+
+    function openGift(giftType) {
+        alert(`你打开了一个${giftType}！`);
+    }
+
+    function submitMessage() {
+        const message = document.getElementById('message').value;
+        if (message.trim()) {
+            alert('感谢您的祝福！');
+            document.getElementById('message').value = '';
+        } else {
+            alert('请输入一些内容！');
+        }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // 初始化调用一次
+
+    // 动态背景效果
+    for (let i = 0; i < 10; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'falling-heart';
+        heart.style.left = `${Math.random() * 100}vw`;
+        heart.style.animationDuration = `${5 + Math.random() * 5}s`;
+        document.body.appendChild(heart);
+    }
+</script>
+</body>
+</html>

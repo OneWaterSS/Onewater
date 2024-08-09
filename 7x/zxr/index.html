@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有你真好</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Baloo+Paaji+2&family=Courgette&family=Dancing+Script&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            overflow: hidden;
+            animation: backgroundAnimation 10s ease-in-out infinite;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%); }
+            50% { background: linear-gradient(120deg, #8fd3f4 0%, #84fab0 100%); }
+            100% { background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%); }
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            animation: moveStars 50s linear infinite;
+        }
+
+        @keyframes moveStars {
+            from { background-position: 0 0; }
+            to { background-position: 10000px 10000px; }
+        }
+
+        .line1, .line2, .line3, .line4 {
+            margin: 10px 0;
+            text-align: center;
+            word-wrap: break-word;
+            z-index: 2;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .line1 {
+            color: #ff6b6b;
+            font-size: 50px;
+            font-family: 'Pacifico', cursive;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .line2 {
+            color: #4facfe;
+            font-size: 30px;
+            font-family: 'Baloo Paaji 2', cursive;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .line3 {
+            color: #51adcf;
+            font-size: 25px;
+            font-family: 'Courgette', cursive;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .line4 {
+            color: #a28089;
+            font-size: 28px;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        #button-container {
+            margin-top: 20px;
+            text-align: center;
+            z-index: 2;
+            animation: slideInUp 1s ease-in-out forwards;
+        }
+
+        @keyframes slideInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .styled-button {
+            background: linear-gradient(45deg, #f3ec78, #af4261);
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 25px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .styled-button:hover {
+            background: linear-gradient(45deg, #af4261, #f3ec78);
+            transform: scale(1.1);
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="stars"></div>
+<div id="text"></div>
+<div id="button-container"></div> <!-- 移除了 a 标签 -->
+
+<script>
+    const lines = [
+        { text: "七夕快乐", className: "line1" },
+        { text: "亲爱的小心宝宝", className: "line2" },
+        { text: "这是一个专属于你的七夕礼物", className: "line3" },
+        { text: "我们先来玩一个游戏吧", className: "line4" },
+    ];
+    const speed = 200;
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    const typingSound = new Audio('MP3/dz.wav'); // 打字音效
+    const buttonSound = new Audio('MP3/an.wav'); // 本地按钮音效
+
+    function typeWriter() {
+        if (lineIndex < lines.length) {
+            const line = lines[lineIndex];
+            if (charIndex === 0) {
+                const lineDiv = document.createElement("div");
+                lineDiv.className = line.className;
+                lineDiv.id = `line${lineIndex}`;
+                document.getElementById("text").appendChild(lineDiv);
+            }
+            if (charIndex < line.text.length) {
+                document.getElementById(`line${lineIndex}`).innerHTML += line.text.charAt(charIndex);
+                typingSound.play(); // 播放打字音效
+                charIndex++;
+                setTimeout(typeWriter, speed);
+            } else {
+                charIndex = 0;
+                lineIndex++;
+                setTimeout(typeWriter, speed);
+            }
+        } else {
+            const button = document.getElementById('button-container');
+            button.innerHTML = "开始游戏";
+            button.className = "styled-button";
+            button.onclick = () => buttonSound.play(); // 按钮点击音效
+            button.onclick = () => window.location.href = "xzm.html"; // 点击按钮跳转页面
+        }
+    }
+
+    typeWriter();
+</script>
+</body>
+</html>
