@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有你真好</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f06, #48f);
+            color: #fff;
+            overflow: hidden;
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        #mainText {
+            font-size: 1.5em;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6f61, #d55c8e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textAnimation 2s ease infinite;
+        }
+
+        @keyframes textAnimation {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        #hiddenText {
+            margin-top: 20px;
+            display: none;
+            color: #ffeb3b;
+            font-size: 1.2em;
+        }
+
+        #nextButton, button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        #nextButton {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            display: none;
+        }
+
+        #nextButton:hover {
+            background: linear-gradient(45deg, #45a049, #4CAF50);
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+        }
+
+        button {
+            background: linear-gradient(45deg, #008CBA, #005f73);
+            color: white;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #005f73, #008CBA);
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+        }
+
+        button i {
+            margin-right: 8px;
+            transition: transform 0.3s;
+        }
+
+        button:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            #mainText {
+                font-size: 1.2em;
+            }
+
+            #hiddenText {
+                font-size: 1em;
+            }
+
+            button, #nextButton {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <p id="mainText">你为什么要动我的东西</p>
+    <button id="mainButton" onclick="showText()">
+        <i class="icon">💬</i>我没有啊
+    </button>
+    <p id="hiddenText">怎么没有你动了我的心啊</p>
+    <button id="nextButton" onclick="nextStep()">
+        <i class="icon">➡️</i>继续
+    </button>
+</div>
+
+<script>
+    let step = 1;
+
+    function showText() {
+        document.getElementById('hiddenText').style.display = 'block';
+        document.getElementById('nextButton').style.display = 'block';
+        document.getElementById('mainButton').style.display = 'none';
+    }
+
+    function nextStep() {
+        step++;
+        document.getElementById('hiddenText').style.display = 'none';
+        document.getElementById('nextButton').style.display = 'none';
+        document.getElementById('mainButton').style.display = 'block';
+
+        switch(step) {
+            case 2:
+                document.getElementById('mainText').textContent = '我最近在找一家店';
+                document.getElementById('mainButton').textContent = '什么店';
+                document.getElementById('hiddenText').textContent = '你的来电';
+                break;
+            case 3:
+                document.getElementById('mainText').textContent = '你有打火机吗';
+                document.getElementById('mainButton').textContent = '没有啊';
+                document.getElementById('hiddenText').textContent = '那你是怎么点燃我的心的呢';
+                break;
+            case 4:
+                document.getElementById('mainText').textContent = '你知道为什么每次见你我都会牙疼吗';
+                document.getElementById('mainButton').textContent = '为什么';
+                document.getElementById('hiddenText').textContent = '因为你太甜了';
+                break;
+            case 5:
+                document.getElementById('mainText').textContent = '我突然觉得我好花心';
+                document.getElementById('mainButton').textContent = '为什么';
+                document.getElementById('hiddenText').textContent = '因为你每天的样子我都喜欢';
+                document.getElementById('nextButton').textContent = '下一关';
+                document.getElementById('nextButton').onclick = function() {
+                    window.location.href = 'tcs.html'; // 替换为你要跳转的页面URL
+                };
+                break;
+            default:
+                window.location.href = 'tcs.html'; // 替换为你要跳转的页面URL
+                break;
+        }
+    }
+</script>
+</body>
+</html>
